@@ -12,4 +12,12 @@ router.get("/", restricted, restrictRole('admin'), (req, res) => {
     .catch(err => res.send(err));
 });
 
+// Now there is limited accessablity for user 
+router.get('/limited', restricted, checkRole('user'), (req,res) =>{
+    Users.findBy({username: req?.decodedJWT?.username})
+      .then((users) => {
+        res.json(users)
+      })
+      .catch( er => res.send(er));
+})
 module.exports = router;

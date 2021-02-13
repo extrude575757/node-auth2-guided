@@ -65,7 +65,7 @@ function generateToken(user) {
   const options = {
     expiresIn: 200000,
   }
-
+  console.log(payload,jwtSecret);
   return jwt.sign(payload, jwtSecret, options)
 }
 
