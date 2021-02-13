@@ -1,3 +1,3 @@
 module.exports; {
-    jwtSecret :  process.env.JWT_SESSION || 'keep it secret'
+    jwtSecret :  process.env.JWT_SESSION ?? 'keep it secret'
 }
