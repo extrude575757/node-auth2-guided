@@ -13,11 +13,15 @@ router.get("/", restricted, restrictRole('admin'), (req, res) => {
 });
 
 // Now there is limited accessablity for user 
-router.get('/limited', restricted, checkRole('user'), (req,res) =>{
-    Users.findBy({username: req?.decodedJWT?.username})
+router.get('/limited', restricted, restrictRole('user'), (req,res) =>{
+  const decodedtkn = req?.decodedJwt?.username; 
+    Users.findBy({username:decodedtkn})
       .then((users) => {
+        console.log('limitedf  here',decodedtkn)
         res.json(users)
       })
-      .catch( er => res.send(er));
+      .catch( er => {
+        res.status(500).json({messger:er, tkn:decodedtkn})
+      });
 })
 module.exports = router;
