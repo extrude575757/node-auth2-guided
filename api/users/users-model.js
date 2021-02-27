@@ -5,6 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
+  findByRole
 };
 
 function find() {
@@ -12,6 +13,15 @@ function find() {
     .join("roles as r", "u.role", "=", "r.id")
     .select("u.id", "u.username", "r.name as role");
 }
+
+
+function findByRole(filter) {
+  return db("users as u")
+    .join("roles as r", "u.role", "=", "r.id")
+    .select("u.id", "u.username", "r.name", "u.password")  
+    .where("r.name",filter.username)
+}
+
 
 function findBy(filter) {
   return db("users as u")
